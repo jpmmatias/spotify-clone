@@ -10,17 +10,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User?   @relation(fields: [authorId], references: [id])
-  authorId  Int?
-}
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  email     String    @unique
+  password  String
+  name      String
+  playlists Playlist[]
+}
+
+model Artist{
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String   @unique
+  songs     Song[]
+}
+
+model Song{
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  duration  Int
+  url       String
+  artistId  Int
+  playslists Playlist[]
+  artist Artist @relation(fields: [artistId], references: [id])
+}
+
+model Playlist{
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  songs     Song[]
+  userId  Int
+  user User @relation(fields: [userId], references: [id])
 }
