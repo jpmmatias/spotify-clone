@@ -31,6 +31,9 @@
     "swr": "^1.1.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/cookie": "^0.5.1",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "18.8.5",
     "@types/react": "^17.0.37",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
@@ -52,5 +55,5 @@
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
- }
+  }
 }
