@@ -8,10 +8,8 @@ import {
 	LinkBox,
 	LinkOverlay,
 } from '@chakra-ui/layout';
-
 import NextImage from 'next/image';
 import Link from 'next/link';
-
 import {
 	MdHome,
 	MdSearch,
@@ -19,6 +17,7 @@ import {
 	MdPlaylistAdd,
 	MdFavorite,
 } from 'react-icons/md';
+import { usePlaylist } from '../lib/hooks/usePlaylist';
 
 type Props = {};
 
@@ -33,9 +32,8 @@ const musicMenu = [
 	{ name: 'Favorites', icon: MdFavorite, route: '/favorites' },
 ];
 
-const playlists = new Array(30).fill(1).map((_, i) => `Playlist ${i + 1}`);
-
 const Sidebar = (props: Props) => {
+	const { playlists } = usePlaylist();
 	return (
 		<Box
 			paddingTop='20px'
@@ -78,15 +76,16 @@ const Sidebar = (props: Props) => {
 			<Divider color='gray.900' my='8px' />
 			<Box height='57.4%' overflowY='auto'>
 				<List spacing={2} pl='10%'>
-					{playlists.map((playlist, index) => (
-						<ListItem key={index}>
-							<LinkBox>
-								<Link href='/' passHref>
-									<LinkOverlay>{playlist}</LinkOverlay>
-								</Link>
-							</LinkBox>
-						</ListItem>
-					))}
+					{playlists &&
+						playlists?.map((playlist) => (
+							<ListItem key={playlist.id}>
+								<LinkBox>
+									<Link href={`/playlists/${playlist.name}`} passHref>
+										<LinkOverlay>{playlist.name}</LinkOverlay>
+									</Link>
+								</LinkBox>
+							</ListItem>
+						))}
 				</List>
 			</Box>
 		</Box>
