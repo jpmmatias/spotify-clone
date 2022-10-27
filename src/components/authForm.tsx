@@ -1,6 +1,6 @@
 import { Box, Flex, Input, Button } from '@chakra-ui/react';
 import Image from 'next/image';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { FormEvent, useState } from 'react';
 import { useSWRConfig } from 'swr';
 import { auth } from '../lib/mutations';
@@ -20,9 +20,9 @@ function AuthForm({ mode }: Props) {
 		e.preventDefault();
 		setIsLoading(true);
 
-		const response = await auth(mode, { email, password, name });
+		const user = await auth(mode, { email, password, name });
 
-		if (response.status !== 200 && response.status !== 201) {
+		if (!user) {
 			setIsLoading(false);
 			return;
 		}

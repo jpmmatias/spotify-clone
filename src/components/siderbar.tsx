@@ -1,6 +1,5 @@
 import {
 	List,
-	Center,
 	ListItem,
 	Box,
 	ListIcon,
@@ -34,6 +33,7 @@ const musicMenu = [
 
 const Sidebar = (props: Props) => {
 	const { playlists } = usePlaylist();
+
 	return (
 		<Box
 			paddingTop='20px'

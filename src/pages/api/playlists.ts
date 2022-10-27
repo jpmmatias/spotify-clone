@@ -8,6 +8,9 @@ export default validateRoute(
 			where: {
 				userId: user.id,
 			},
+			orderBy: {
+				name: 'asc',
+			},
 		});
 
 		res.json(playlists);
