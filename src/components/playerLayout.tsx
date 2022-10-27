@@ -10,7 +10,7 @@ const PlayerLayout = ({ children }: Props) => {
 		<Grid
 			height='100vh'
 			width='100vw'
-			gridTemplateColumns='30vw auto'
+			gridTemplateColumns='20vw auto'
 			gridTemplateRows='90vh 10vh'
 		>
 			<GridItem as='aside' rowStart={1} rowEnd={2} colStart={1} colEnd={2}>
