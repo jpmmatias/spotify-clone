@@ -76,12 +76,25 @@ const Sidebar = (props: Props) => {
 			<Divider color='gray.900' my='8px' />
 			<Box height='57.4%' overflowY='auto'>
 				<List spacing={2} pl='10%'>
-					{playlists &&
+					{playlists.length > 0 &&
 						playlists?.map((playlist) => (
 							<ListItem key={playlist.id}>
 								<LinkBox>
-									<Link href={`/playlists/${playlist.name}`} passHref>
-										<LinkOverlay>{playlist.name}</LinkOverlay>
+									<Link
+										href={{
+											pathname: '/playlist/[id]',
+											query: { id: playlist.id },
+										}}
+										passHref
+									>
+										<LinkOverlay
+											_hover={{
+												color: 'white',
+												transition: 'ease-in-out .1s',
+											}}
+										>
+											{playlist.name}
+										</LinkOverlay>
 									</Link>
 								</LinkBox>
 							</ListItem>

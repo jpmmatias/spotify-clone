@@ -27,7 +27,7 @@ const GradientLayout = ({
 			overflowY='auto'
 			bgGradient={`linear(${color}.500 0%, ${color}.600 15%, ${color}.700 40%, rgba(0,0,0,1.95) 75%)`}
 		>
-			<Flex bg={`${color}.600`} padding='2rem' align='end'>
+			<Flex mb='2rem' bg={`${color}.600`} padding='2rem' align='end'>
 				<Box padding='1rem'>
 					<Image
 						boxSize='10rem'
@@ -51,6 +51,7 @@ const GradientLayout = ({
 					</Text>
 				</Stack>
 			</Flex>
+			{children}
 		</Box>
 	);
 };
