@@ -12,26 +12,26 @@ import {
 import { BsFillPlayFill } from 'react-icons/bs';
 import { AiOutlineClockCircle, AiOutlineHeart } from 'react-icons/ai';
 import { formateDate, formatTime } from '../lib/formatters';
-
+import { useStoreActions } from 'easy-peasy';
 type Props = {
-	songs: {
-		name: string;
-		artist: {
-			name: string;
-		};
-		createdAt: any;
-		id: number;
-		updatedAt: string;
-		duration: number;
-	}[];
+	songs: any[];
 };
 
 const SongsTable = ({ songs }: Props) => {
+	const playSongs = useStoreActions((store: any) => store.changeActiveSongs);
+	const playSong = useStoreActions((store: any) => store.changeActiveSong);
+
+	const handlePlay = (activeSong: any = songs[0]) => {
+		playSong(activeSong);
+		playSongs(songs);
+	};
+
 	return (
 		<Box color='white' bg='transparent'>
 			<Box padding='10px' marginBottom='20px'>
 				<HStack gap='4' marginBottom='20px'>
 					<IconButton
+						onClick={() => handlePlay()}
 						icon={<BsFillPlayFill fontSize='30px' />}
 						aria-label='play'
 						colorScheme='green'
@@ -60,6 +60,7 @@ const SongsTable = ({ songs }: Props) => {
 					<Tbody>
 						{songs.map((song, i) => (
 							<Tr
+								onClick={() => handlePlay(song)}
 								key={song.id}
 								cursor='pointer'
 								sx={{
