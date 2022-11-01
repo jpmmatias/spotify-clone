@@ -1,4 +1,5 @@
 import { Box, Grid, GridItem } from '@chakra-ui/layout';
+import PlayerBar from './playerBar';
 import Sidebar from './siderbar';
 
 type Props = {
@@ -10,17 +11,17 @@ const PlayerLayout = ({ children }: Props) => {
 		<Grid
 			height='100vh'
 			width='100vw'
-			gridTemplateColumns='20vw auto'
-			gridTemplateRows='90vh 10vh'
+			gridTemplateColumns='20% auto'
+			gridTemplateRows='90% auto'
 		>
 			<GridItem as='aside' rowStart={1} rowEnd={2} colStart={1} colEnd={2}>
 				<Sidebar />
 			</GridItem>
-			<GridItem rowStart={1} rowEnd={2} colStart={2} colEnd={3}>
+			<GridItem rowStart={1} rowEnd={2} colStart={2} colEnd={2}>
 				{children}
 			</GridItem>
-			<GridItem rowStart={2} rowEnd={3} as='div'>
-				Player
+			<GridItem rowStart={2} rowEnd={2}>
+				<PlayerBar />
 			</GridItem>
 		</Grid>
 	);

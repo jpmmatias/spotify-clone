@@ -24,6 +24,7 @@ const GradientLayout = ({
 	return (
 		<Box
 			height='100%'
+			width='100%'
 			overflowY='auto'
 			bgGradient={`linear(${color}.500 0%, ${color}.600 15%, ${color}.700 40%, rgba(0,0,0,1.95) 75%)`}
 		>

@@ -15,7 +15,7 @@ export const validateRoute = (handler) => {
 		let user;
 
 		try {
-			const response = jwt.verify(token, 'secret');
+			const response = validateToken(token);
 			user = await prisma.user.findUnique({
 				where: { id: (<{ id: number }>response).id },
 			});
@@ -31,4 +31,13 @@ export const validateRoute = (handler) => {
 
 		return handler(req, res, user);
 	};
+};
+
+interface JWTPayload {
+	id: number;
+}
+
+export const validateToken = (token) => {
+	const user = jwt.verify(token, 'secret') as JWTPayload;
+	return user;
 };

@@ -9,7 +9,7 @@ interface IHome {
 }
 
 export default function Home({ artists }: IHome) {
-	const { user, error } = useMe();
+	const { user } = useMe();
 	return (
 		<GradientLayout
 			roundeImage

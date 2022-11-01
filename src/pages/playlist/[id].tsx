@@ -3,6 +3,7 @@ import { Image } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import GradientLayout from '../../components/gradientLayout';
 import SongsTable from '../../components/songsTable';
+import { validateToken } from '../../lib/auth';
 import { useMe } from '../../lib/hooks/useMe';
 import prisma from '../../lib/prisma';
 
@@ -45,12 +46,26 @@ export default function Playlist({ playlist }: IPlaylistPageProps) {
 	);
 }
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps = async ({ params, req }) => {
+	let user;
+
 	const { id } = params;
 
-	const playlist = await prisma.playlist.findUnique({
+	try {
+		user = validateToken(req.cookies.TRAX_ACCESS_TOKEN);
+	} catch (error) {
+		return {
+			redirect: {
+				destination: '/sign-in',
+				permanent: false,
+			},
+		};
+	}
+
+	const playlists = await prisma.playlist.findMany({
 		where: {
 			id: Number(id),
+			userId: user.id,
 		},
 		include: {
 			songs: {
@@ -66,7 +81,7 @@ export const getServerSideProps = async ({ params }) => {
 		},
 	});
 
-	if (!playlist) {
+	if (!playlists) {
 		return {
 			redirect: {
 				permanent: false,
@@ -74,6 +89,8 @@ export const getServerSideProps = async ({ params }) => {
 			},
 		};
 	}
+
+	const playlist = playlists[0];
 
 	const songsCount = playlist.songs.length;
 
