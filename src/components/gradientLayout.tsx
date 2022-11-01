@@ -8,8 +8,8 @@ type Props = {
 	children: ReactNode;
 	subtitle: string;
 	description: string;
-	roundeImage: boolean;
-	image: string;
+	roundeImage?: boolean;
+	image?: string;
 };
 
 const GradientLayout = ({
@@ -17,7 +17,7 @@ const GradientLayout = ({
 	color,
 	description,
 	image,
-	roundeImage,
+	roundeImage = false,
 	subtitle,
 	title,
 }: Props) => {
